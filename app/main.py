@@ -1,11 +1,11 @@
 from typing import List, Tuple, Annotated
 
 from fastapi import (
-  FastAPI, 
-  status, 
-  Depends, 
-  HTTPException, 
-  Query, 
+  FastAPI,
+  status,
+  Depends,
+  HTTPException,
+  Query,
   Request
 )
 from fastapi.exceptions import RequestValidationError
@@ -76,13 +76,13 @@ async def get_post_or_404(id: int, database: Database = Depends(get_database)) -
 async def create_post(
         post: PostCreate, database: Database = Depends(get_database)
 ) -> PostDB:
- 
+
     logger.info(f"Got a create post request with: {post}")
 
     insert_query = posts.insert().values(post.dict())
     post_id = await database.execute(insert_query)
     post_db = await get_post_or_404(post_id, database)
-    
+
     return post_db
 
 
@@ -108,7 +108,7 @@ async def get_post(post: PostDB = Depends(get_post_or_404)) -> PostDB:
 
 @app.get("/posts2")
 async def get_my_posts(
-      skip: int = 0, 
+      skip: int = 0,
       limit: int = 10,
       database: Database = Depends(get_database),
     ):
@@ -122,8 +122,8 @@ async def get_my_posts(
 
 
 async def common_parameters(
-        q: str = "ab", 
-        skip: int = 10, 
+        q: str = "ab",
+        skip: int = 10,
         limit: int = 100
       ):
     return {
@@ -139,4 +139,4 @@ async def read_items(commons: Annotated[dict, Depends(common_parameters)]):
 
 @app.get("/users")
 async def read_users(commons: Annotated[dict, Depends(common_parameters)]):
-    return commons   
+    return commons
