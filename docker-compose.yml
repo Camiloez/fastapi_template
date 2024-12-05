@@ -12,7 +12,7 @@ services:
       context: .       # Context is the root of the project
       dockerfile: app/Dockerfile
       #command: ["poetry", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "5000"]
-    command: ["poetry", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+    command: ["poetry", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload", "--log-config", "app/log_config.yml"]
     ports:
       - "8000:8000"  # Example port mapping 
     volumes:
