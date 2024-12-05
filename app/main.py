@@ -139,4 +139,4 @@ async def read_items(commons: Annotated[dict, Depends(common_parameters)]):
 
 @app.get("/users")
 async def read_users(commons: Annotated[dict, Depends(common_parameters)]):
-    return commons
+    return commons   
